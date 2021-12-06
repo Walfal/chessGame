@@ -1,77 +1,73 @@
 import java.util.Scanner;
 
 public class Chess {
-    private Cell[][] board = new Cell[8][8];
-    private Player[] players;
-    private Player currentPlayer;
-    
-    final String STRPIECES = "KQBNPR";
-    
-    private Scanner sc = new Scanner(System.in);
-    
-    
-    public void play() {
-    	initialiseBoard();
-    	printBoard();
-    	
-    	String move;
-    	
-    	while(true) {
-	    	move = askMove();
-	    	
-	    	if(isValidMove(move)) {
-	    		updateBoard(move);
-	    	} else {
-	    		System.out.println("Your move is invalid");
-	    	}
-	    
-	    	printBoard();
-    	}
-    	
-    }
-    
-    private void updateBoard(String move) {
-    	String[] moves = move.split(" ");
-		int startColumn = moves[0].charAt(1) - 97;
-		int startRow = Character.getNumericValue(moves[0].charAt(2)) - 1;
-		
-		int endColumn = moves[1].charAt(1) - 97;
-		int endRow = Character.getNumericValue(moves[1].charAt(2)) - 1;
-		
-		board[endRow][endColumn].setCurrentPiece(board[startRow][startColumn].getCurrentPiece());
-		board[endRow][endColumn].getCurrentPiece().position.setRow(endRow);
-		board[endRow][endColumn].getCurrentPiece().position.setColumn(endColumn);
-		board[startRow][startColumn].setCurrentPiece(null);
-		
-    }
-    
-    private boolean isValidMove(String move) {
-		String[] moves = move.split(" ");
-		char piece;
-		int startColumn = moves[0].charAt(1) - 97;
-		int startRow = Character.getNumericValue(moves[0].charAt(2)) - 1;
-		
-		int endColumn = moves[1].charAt(1) - 97;
-		int endRow = Character.getNumericValue(moves[1].charAt(2)) - 1;
-		
-		if(moves[0].charAt(0) == moves[1].charAt(0)) {
-			piece = moves[0].charAt(0);
-		} else {
-			return false;
-		}
-		
-		if (STRPIECES.contains(""+piece) && board[startRow][startColumn].getCurrentPiece().toChar() == piece) {
-			return board[startRow][startColumn].getCurrentPiece().isValidMove(new Position(endRow, endColumn), board);
-		}
-		
-		return false;
-		
-	}
+  private Cell[][] board = new Cell[8][8];
+  private Player[] players = new Player[2];
+  private Scanner sc = new Scanner(System.in);
 
-	private void initialiseBoard() {    	
-    	for(int i = 0; i<8; i++) {
-    		for(int j = 0; j < 8; j++) {
-    			Position position = new Position(i, j);
+  public void play() {
+    initialiseBoard();
+    printBoard();
+    String move;
+
+    int currentPlayer = 0;
+    while(true) {
+      move = askMove(currentPlayer);
+      if(isValidMove(move, currentPlayer)) {
+        updateBoard(move);
+        currentPlayer = (currentPlayer + 1) % 2;
+      } else {
+        System.out.println("Your move is invalid");
+      }
+      printBoard();
+    }
+  }
+
+  private void updateBoard(String move) {
+    String[] moves     = move.split(" ");
+    int    startColumn = moves[0].charAt(0) - 97;
+    int    startRow    = Character.getNumericValue(moves[0].charAt(1)) - 1;
+
+    int endColumn = moves[1].charAt(0) - 97;
+    int endRow    = Character.getNumericValue(moves[1].charAt(1)) - 1;
+
+    board[endRow][endColumn].setCurrentPiece(board[startRow][startColumn].getCurrentPiece());
+    board[endRow][endColumn].getCurrentPiece().position.setRow(endRow);
+    board[endRow][endColumn].getCurrentPiece().position.setColumn(endColumn);
+    board[startRow][startColumn].setCurrentPiece(null);
+  }
+
+  private boolean isValidMove(String move, int colorPlayer) {
+    if (!move.matches("([a-h][1-8] [a-h][1-8])")) {
+      return false;
+    }
+    String[] moves = move.split(" ");
+    int startColumn = moves[0].charAt(0) - 97;
+    int startRow    = Character.getNumericValue(moves[0].charAt(1)) - 1;
+
+    int endColumn = moves[1].charAt(0) - 97;
+    int endRow = Character.getNumericValue(moves[1].charAt(1)) - 1;
+
+    if (board[startRow][startColumn].getCurrentPiece() == null
+        || board[startRow][startColumn].getCurrentPiece().color != colorPlayer
+        || (board[endRow][endColumn].getCurrentPiece() != null && board[endRow][endColumn].getCurrentPiece().color == colorPlayer)) {
+      return false;
+    }
+    return board[startRow][startColumn].getCurrentPiece().isValidMove(new Position(endRow, endColumn), board);
+  }
+
+  private void initialiseBoard() {
+    System.out.print("Enter the name of the 1st player : ");
+    String name1 = sc.nextLine();
+    players[0] = new Player(name1, 0);
+    System.out.print("Enter the name of the 2sd player : ");
+    String name2 = sc.nextLine();
+    players[1] = new Player(name2, 1);
+
+    for(int i = 0; i < 8; i++) {
+      for(int j = 0; j < 8; j++) {
+        Position position = new Position(i, j);
+        board[i][j] = new Cell(position);
 
         if((i == 0 && j == 0) || (i == 0 && j == 7)) {
           board[i][j].setCurrentPiece(new Rook(1, position));
