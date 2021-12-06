@@ -46,7 +46,6 @@ public class Pawn extends Piece {
         }
         break;
     }
-    //TODO Prise en passant
     return false;
 	}
 
