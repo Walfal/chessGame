@@ -5,11 +5,49 @@ public class Pawn extends Piece {
 	}
 
 	@Override
-	public boolean isValidMove(Position position, Cell[][] board) {
-		return board[position.getRow()][position.getColumn()].getCurrentPiece() == null &&
-				((position.getRow() == super.position.getRow() + 1 && super.color == 1 && position.getColumn() == super.position.getColumn()) ||
-				(position.getRow() == super.position.getRow() - 1 && super.color == 0 && position.getColumn() == super.position.getColumn()));
-		
+  public boolean isValidMove(Position position, Cell[][] board) {
+    switch (super.color) {
+      case 0:
+        // Si le pion veut aller tout droit
+        if (board[position.getRow()][position.getColumn()].getCurrentPiece() == null
+            && position.getColumn() == super.position.getColumn()) {
+          if (position.getRow() == super.position.getRow() - 1) {
+            return true;
+          } else if (position.getRow() == super.position.getRow() - 2
+              && super.position.getRow() == 6
+              && board[position.getRow() - 1][position.getColumn() - 1].getCurrentPiece() == null) {
+            return true;
+          }
+        } // Si le pion veut aller en diagonale
+        else if (Math.abs(position.getColumn() - super.position.getColumn()) == 1
+            && position.getRow() == super.position.getRow() - 1
+            && board[position.getRow()][position.getColumn()].getCurrentPiece() != null
+            && board[position.getRow()][position.getColumn()].getCurrentPiece().color != super.color) {
+          return true;
+        }
+        break;
+      case 1:
+        // Si le pion veut aller tout droit
+        if (board[position.getRow()][position.getColumn()].getCurrentPiece() == null
+            && position.getColumn() == super.position.getColumn()) {
+          if (position.getRow() == super.position.getRow() + 1) {
+            return true;
+          } else if (position.getRow() == super.position.getRow() + 2
+              && super.position.getRow() == 1
+              && board[position.getRow() + 1][position.getColumn() + 1].getCurrentPiece() == null) {
+            return true;
+          }
+        } // Si le pion veut aller en diagonale
+        else if (Math.abs(position.getColumn() - super.position.getColumn()) == 1
+            && position.getRow() == super.position.getRow() + 1
+            && board[position.getRow()][position.getColumn()].getCurrentPiece() != null
+            && board[position.getRow()][position.getColumn()].getCurrentPiece().color != super.color) {
+          return true;
+        }
+        break;
+    }
+    //TODO Prise en passant
+    return false;
 	}
 
 	@Override
