@@ -6,9 +6,14 @@ public class King extends Piece {
 	}
 
 	@Override
-	public boolean isValidMove(Position position, Cell[][] board) {
-		// TODO Auto-generated method stub
-		return false;
+  public boolean isValidMove(Position position, Cell[][] board) {
+    if (Math.abs(position.getRow() - this.position.getRow()) <= 1
+        && Math.abs(position.getColumn() - this.position.getColumn()) <= 1
+        && (position.getRow() != this.position.getRow() || position.getColumn() != this.position.getColumn())) {
+      return true;
+    }
+    // TODO Rock case
+    return false;
 	}
 
 	@Override
