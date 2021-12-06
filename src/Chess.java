@@ -4,7 +4,6 @@ public class Chess {
   private Cell[][] board   = new Cell[8][8];
   private Player[] players = new Player[2];
   private Scanner sc       = new Scanner(System.in);
-  //TODO Victory case
   //TODO Check & check mate
 
   public void play() {
@@ -53,8 +52,12 @@ public class Chess {
     if (board[startRow][startColumn].getCurrentPiece() == null
         || moves[0] == moves[1]
         || board[startRow][startColumn].getCurrentPiece().color != colorCurrentPlayer
-        || (board[endRow][endColumn].getCurrentPiece() != null && board[endRow][endColumn].getCurrentPiece().color == colorCurrentPlayer)) {
+        || (board[endRow][endColumn].getCurrentPiece() != null
+            && board[endRow][endColumn].getCurrentPiece().color == colorCurrentPlayer)) {
       return false;
+    }
+    if (board[endRow][endColumn].getCurrentPiece() != null && board[endRow][endColumn].getCurrentPiece().toChar() == 'K') {
+      endGame(players[colorCurrentPlayer]);
     }
     return board[startRow][startColumn].getCurrentPiece().isValidMove(new Position(endRow, endColumn), board);
   }
@@ -122,5 +125,10 @@ public class Chess {
     System.out.print(players[i].getName() + ", it's your turn : ");
     String move = sc.nextLine();
     return move;
+  }
+
+  private void endGame(Player player) {
+    System.out.println("Congratulations " + player.getName() + " you won !");
+    System.exit(0);
   }
 }
