@@ -49,6 +49,7 @@ public class Chess {
     int endRow = Character.getNumericValue(moves[1].charAt(1)) - 1;
 
     if (board[startRow][startColumn].getCurrentPiece() == null
+        || moves[0] == moves[1]
         || board[startRow][startColumn].getCurrentPiece().color != colorPlayer
         || (board[endRow][endColumn].getCurrentPiece() != null && board[endRow][endColumn].getCurrentPiece().color == colorPlayer)) {
       return false;
@@ -99,16 +100,12 @@ public class Chess {
   }
 
   private void printBoard() {
-    System.out.print("\n  ");
-    for (int i = 7; i >= 0; i--) {
-      System.out.print(Character.toString(104 - i) + " ");
-    }
-    System.out.println();
+    System.out.println("\n   a b c d e f g h");
     for(int i = 7; i >= 0; i--) {
-      System.out.print(i + 1 + " ");
+      System.out.print(i + 1 + "  ");
       for(int j = 0; j < 8; j++) {
         if(board[i][j].getCurrentPiece() == null) {
-          System.out.print(" ");
+          System.out.print(".");
         } else {
           System.out.print(board[i][j].getCurrentPiece().toString());
         }
