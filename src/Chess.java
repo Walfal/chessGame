@@ -1,21 +1,23 @@
 import java.util.Scanner;
 
 public class Chess {
-  private Cell[][] board = new Cell[8][8];
+  private Cell[][] board   = new Cell[8][8];
   private Player[] players = new Player[2];
-  private Scanner sc = new Scanner(System.in);
+  private Scanner sc       = new Scanner(System.in);
+  //TODO Victory case
+  //TODO Check & check mate
 
   public void play() {
     initialiseBoard();
     printBoard();
     String move;
 
-    int currentPlayer = 0;
+    int colorCurrentPlayer = 0;
     while(true) {
-      move = askMove(currentPlayer);
-      if(isValidMove(move, currentPlayer)) {
+      move = askMove(colorCurrentPlayer);
+      if(isValidMove(move, colorCurrentPlayer)) {
         updateBoard(move);
-        currentPlayer = (currentPlayer + 1) % 2;
+        colorCurrentPlayer = (colorCurrentPlayer + 1) % 2;
       } else {
         System.out.println("Your move is invalid");
       }
@@ -37,11 +39,11 @@ public class Chess {
     board[startRow][startColumn].setCurrentPiece(null);
   }
 
-  private boolean isValidMove(String move, int colorPlayer) {
+  private boolean isValidMove(String move, int colorCurrentPlayer) {
     if (!move.matches("([a-h][1-8] [a-h][1-8])")) {
       return false;
     }
-    String[] moves = move.split(" ");
+    String[] moves  = move.split(" ");
     int startColumn = moves[0].charAt(0) - 97;
     int startRow    = Character.getNumericValue(moves[0].charAt(1)) - 1;
 
@@ -50,8 +52,8 @@ public class Chess {
 
     if (board[startRow][startColumn].getCurrentPiece() == null
         || moves[0] == moves[1]
-        || board[startRow][startColumn].getCurrentPiece().color != colorPlayer
-        || (board[endRow][endColumn].getCurrentPiece() != null && board[endRow][endColumn].getCurrentPiece().color == colorPlayer)) {
+        || board[startRow][startColumn].getCurrentPiece().color != colorCurrentPlayer
+        || (board[endRow][endColumn].getCurrentPiece() != null && board[endRow][endColumn].getCurrentPiece().color == colorCurrentPlayer)) {
       return false;
     }
     return board[startRow][startColumn].getCurrentPiece().isValidMove(new Position(endRow, endColumn), board);
@@ -117,7 +119,7 @@ public class Chess {
   }
 
   private String askMove(int i) {
-    System.out.print(players[i].getName()+ ", it's your turn : ");
+    System.out.print(players[i].getName() + ", it's your turn : ");
     String move = sc.nextLine();
     return move;
   }
