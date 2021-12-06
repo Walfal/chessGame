@@ -1,20 +1,17 @@
-package chessGame;
-
 public class Position {
-	
 	int column;
 	int row;
-	
+
 	public Position(int row, int column) {
 		super();
 		this.column = column;
-		this.row = row;
+		this.row    = row;
 	}
 
 	public char getCharColumn() {
-		return (char)(97 + column);
+		return (char) (97 + column);
 	}
-	
+
 	public int getColumn() {
 		return column;
 	}
@@ -35,7 +32,4 @@ public class Position {
 	public String toString() {
 		return "Position [column=" + column + ", row=" + row + "]";
 	}
-
-	
-	
 }

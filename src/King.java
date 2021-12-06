@@ -1,5 +1,3 @@
-package chessGame;
-
 public class King extends Piece {
 
 
@@ -15,18 +13,14 @@ public class King extends Piece {
 
 	@Override
 	public String toString() {
-		if (super.color == 0) {
-			return "\u2654";
-		} else {
+		if (super.color == 0)
 			return "\u265A";
-		}
+		else
+			return "\u2654";
 	}
-	
+
 	@Override
 	public char toChar() {
 		return 'K';
 	}
-	
-	
-	
 }

@@ -1,10 +1,8 @@
-package chessGame;
-
 public class Player {
-	
+
 	String name;
 	int color;
-	
+
 	public Player(String name, int color) {
 		this.name = name;
 		this.color = color;
@@ -25,5 +23,4 @@ public class Player {
 	public void setColor(int color) {
 		this.color = color;
 	}
-	
 }

@@ -1,5 +1,3 @@
-package chessGame;
-
 import java.util.Scanner;
 
 public class Chess {
@@ -75,60 +73,59 @@ public class Chess {
     		for(int j = 0; j < 8; j++) {
     			Position position = new Position(i, j);
 
-    			board[i][j] = new Cell(position);
-    			
-    			if((i==0 && j==0) || (i==0 && j==7)) {
-    				board[i][j].setCurrentPiece(new Rook(1, position));
-    			} else if((i==7 && j==0) || (i==7 && j==7)) {
-    				board[i][j].setCurrentPiece(new Rook(0, position));
-    			} else if ((i==0 && j==1) || (i==0 && j==6)) {
-    				board[i][j].setCurrentPiece(new Knight(1, position));
-    			} else if ((i==7 && j==1) || (i==7 && j==6)) {
-    				board[i][j].setCurrentPiece(new Knight(0, position));
-    			} else if ((i==0 && j==2) || (i==0 && j==5)) {
-    				board[i][j].setCurrentPiece(new Bishop(1, position));
-    			} else if ((i==7 && j==2) || (i==7 && j==5)) {
-    				board[i][j].setCurrentPiece(new Bishop(0, position));
-    			} else if ((i==0 && j==3)) {
-    				board[i][j].setCurrentPiece(new Queen(1, position));
-    			} else if ((i==7 && j==3)) {
-    				board[i][j].setCurrentPiece(new Queen(0, position));
-    			} else if (i==0 && j==4) {
-    				board[i][j].setCurrentPiece(new King(1, position));
-    			} else if (i==7 && j==4){
-    				board[i][j].setCurrentPiece(new King(0, position));
-    			} else if (i==1) {
-    				// board[i][j].setCurrentPiece(new Pawn(1, position));
-    			} else if (i==6) {
-    				board[i][j].setCurrentPiece(new Pawn(0, position));
-    			}
-    		}
-    	}
+        if((i == 0 && j == 0) || (i == 0 && j == 7)) {
+          board[i][j].setCurrentPiece(new Rook(1, position));
+        } else if((i == 7 && j == 0) || (i == 7 && j == 7)) {
+          board[i][j].setCurrentPiece(new Rook(0, position));
+        } else if ((i == 0 && j == 1) || (i == 0 && j == 6)) {
+          board[i][j].setCurrentPiece(new Knight(1, position));
+        } else if ((i == 7 && j == 1) || (i == 7 && j == 6)) {
+          board[i][j].setCurrentPiece(new Knight(0, position));
+        } else if ((i == 0 && j == 2) || (i == 0 && j == 5)) {
+          board[i][j].setCurrentPiece(new Bishop(1, position));
+        } else if ((i == 7 && j == 2) || (i == 7 && j == 5)) {
+          board[i][j].setCurrentPiece(new Bishop(0, position));
+        } else if ((i == 0 && j == 3)) {
+          board[i][j].setCurrentPiece(new Queen(1, position));
+        } else if ((i == 7 && j == 3)) {
+          board[i][j].setCurrentPiece(new Queen(0, position));
+        } else if (i == 0 && j == 4) {
+          board[i][j].setCurrentPiece(new King(1, position));
+        } else if (i == 7 && j == 4){
+          board[i][j].setCurrentPiece(new King(0, position));
+        } else if (i == 1) {
+          board[i][j].setCurrentPiece(new Pawn(1, position));
+        } else if (i == 6) {
+          board[i][j].setCurrentPiece(new Pawn(0, position));
+        }
+      }
     }
-    
-    private void printBoard() {
-    	System.out.print("\n");
-    	for(int i = 7; i>=0; i--) {
-    		for(int j = 0; j < 8; j++) {
-    			if(board[i][j].getCurrentPiece() == null) {
-    				System.out.print(" ");
-    			} else {
-    				System.out.print(board[i][j].getCurrentPiece().toString());
-    			}
-    			System.out.print(" ");
-    		}
-    		System.out.println();
-    	}
-    	System.out.print("\n");
-    }
-    
-    private String askMove() {
-    	System.out.print("Enter your move : ");
-    	
-    	String move = sc.nextLine();
-    	
-		return move;
-    	
-    }
-}
+  }
 
+  private void printBoard() {
+    System.out.print("\n  ");
+    for (int i = 7; i >= 0; i--) {
+      System.out.print(Character.toString(104 - i) + " ");
+    }
+    System.out.println();
+    for(int i = 7; i >= 0; i--) {
+      System.out.print(i + 1 + " ");
+      for(int j = 0; j < 8; j++) {
+        if(board[i][j].getCurrentPiece() == null) {
+          System.out.print(" ");
+        } else {
+          System.out.print(board[i][j].getCurrentPiece().toString());
+        }
+        System.out.print(" ");
+      }
+      System.out.println();
+    }
+    System.out.println();
+  }
+
+  private String askMove(int i) {
+    System.out.print(players[i].getName()+ ", it's your turn : ");
+    String move = sc.nextLine();
+    return move;
+  }
+}

@@ -1,5 +1,3 @@
-package chessGame;
-
 public class Bishop extends Piece {
 
 	public Bishop(int color, Position position) {
@@ -15,16 +13,14 @@ public class Bishop extends Piece {
 
 	@Override
 	public String toString() {
-		if (super.color == 0) {
-			return "\u2657";
-		} else {
+		if (super.color == 0)
 			return "\u265D";
-		}
+		else
+			return "\u2657";
 	}
-	
+
 	@Override
 	public char toChar() {
 		return 'B';
 	}
-
 }
