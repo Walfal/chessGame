@@ -47,9 +47,9 @@ public class Bishop extends Piece {
 	@Override
 	public String toString() {
 		if (super.color == 0)
-			return "\u265D";
-		else
 			return "\u2657";
+		else
+			return "\u265D";
 	}
 
 	@Override

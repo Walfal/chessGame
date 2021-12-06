@@ -19,9 +19,9 @@ public class King extends Piece {
 	@Override
 	public String toString() {
 		if (super.color == 0)
-			return "\u265A";
-		else
 			return "\u2654";
+		else
+			return "\u265A";
 	}
 
 	@Override

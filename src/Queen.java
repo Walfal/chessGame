@@ -76,9 +76,9 @@ public class Queen extends Piece {
 	@Override
 	public String toString() {
 		if (super.color == 0)
-			return "\u265B";
-		else
 			return "\u2655";
+		else
+			return "\u265B";
 	}
 
 	@Override

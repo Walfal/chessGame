@@ -52,9 +52,9 @@ public class Pawn extends Piece {
 	@Override
 	public String toString() {
 		if(super.color == 0)
-			return "\u265F";
-		else
 			return "\u2659";
+		else
+			return "\u265F";
 	}
 
 	@Override

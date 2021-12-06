@@ -17,9 +17,9 @@ public class Knight extends Piece {
 	@Override
 	public String toString() {
 		if (super.color == 0)
-			return "\u265E";
-		else
 			return "\u2658";
+		else
+			return "\u265E";
 	}
 
 	@Override

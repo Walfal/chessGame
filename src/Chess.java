@@ -12,7 +12,7 @@ public class Chess {
     printBoard();
     String move;
 
-    int colorCurrentPlayer = 0;
+    int colorCurrentPlayer = 1;
     while(true) {
       move = askMove(colorCurrentPlayer);
       if(isValidMove(move, colorCurrentPlayer)) {
@@ -62,10 +62,10 @@ public class Chess {
   private void initialiseBoard() {
     System.out.print("Enter the name of the 1st player : ");
     String name1 = sc.nextLine();
-    players[0] = new Player(name1, 0);
+    players[1] = new Player(name1, 1);
     System.out.print("Enter the name of the 2sd player : ");
     String name2 = sc.nextLine();
-    players[1] = new Player(name2, 1);
+    players[0] = new Player(name2, 0);
 
     for(int i = 0; i < 8; i++) {
       for(int j = 0; j < 8; j++) {

@@ -41,9 +41,9 @@ public class Rook extends Piece {
 	@Override
 	public String toString() {
 		if (super.color == 0)
-			return "\u265C";
-		else
 			return "\u2656";
+		else
+			return "\u265C";
 	}
 
 	@Override
